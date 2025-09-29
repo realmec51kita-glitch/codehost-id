@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ᴄᴏᴅᴇʜᴏꜱᴛ.ɪᴅ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, #0a0f2c, #1b1235, #0a0f2c);
+      background-size: 600% 600%;
+      animation: bgRGB 15s ease infinite;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    @keyframes bgRGB {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #9d6bff;
+      box-shadow: 0 0 20px rgba(157, 107, 255, 0.6);
+    }
+    .marquee {
+      margin-top: 20px;
+      background: #1b1235;
+      padding: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 500px;
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 12s linear infinite;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+    .menu {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      max-width: 400px;
+    }
+    .menu a {
+      display: block;
+      padding: 15px 15px 15px 45px;
+      border-radius: 12px;
+      background: #1b1235;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+    .menu a::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: rgbGlow 2s linear infinite;
+    }
+    @keyframes rgbGlow {
+      0% { background:#ff0000; box-shadow:0 0 10px #ff0000,0 0 20px #ff0000; }
+      25% { background:#00ff00; box-shadow:0 0 10px #00ff00,0 0 20px #00ff00; }
+      50% { background:#0000ff; box-shadow:0 0 10px #0000ff,0 0 20px #0000ff; }
+      75% { background:#ff00ff; box-shadow:0 0 10px #ff00ff,0 0 20px #ff00ff; }
+      100% { background:#ff0000; box-shadow:0 0 10px #ff0000,0 0 20px #ff0000; }
+    }
+    .menu a:hover {
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      box-shadow: 0 0 25px rgba(255,255,255,0.8);
+    }
+    #content { display: none; padding: 20px; text-align: left; max-width: 700px; margin: auto; }
+    #pageContent { }
+    #backBtn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: #9d6bff;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    h2 { color: #9d6bff; text-align: center; }
+    .section { 
+      background:#1b1235; 
+      padding:20px; 
+      border-radius:12px; 
+      margin-bottom:20px; 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    /* Animasi smooth muncul */
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    label { display:block; margin:10px 0 5px; font-weight:600; }
+    input, select {
+      width: 100%; padding: 10px; border-radius: 8px; border: none;
+      margin-bottom: 15px; font-family: 'Poppins', sans-serif;
+    }
+    .wa-btn {
+      display: inline-block;
+      background: #25D366;
+      padding: 12px 25px;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+    }
+    /* Tombol musik */
+    .music-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .music-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: #9d6bff;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 15px rgba(157,107,255,0.7);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <header id="home">
+    <img src="logo.jpg" alt="ᴄᴏᴅᴇʜᴏꜱᴛ ʟᴏɢᴏ" class="logo">
+    <div class="marquee">
+      <span>ꜱᴇʟᴀᴍᴀᴛ ᴅᴀᴛᴀɴɢ ᴅɪ ᴄᴏᴅᴇʜᴏꜱᴛ.ɪᴅ • ʜᴏꜱᴛɪɴɢ ᴀᴍᴀɴ • ᴛᴇʀᴘᴇʀᴄᴀʏᴀ • ᴡᴇʙ ᴀꜱʟɪ</span>
+    </div>
+    <div class="menu">
+      <a onclick="openPage('hosting')">ʜᴏꜱᴛɪɴɢ ꜱᴀᴍᴘ & ᴍɪɴᴇᴄʀᴀꜰᴛ</a>
+      <a onclick="openPage('bot')">ʜᴏꜱᴛɪɴɢ ʙᴏᴛ</a>
+      <a onclick="openPage('dev')">ᴊᴀꜱᴀ ᴅᴇᴠᴇʟᴏᴘᴍᴇɴᴛ + ᴘᴇʀᴀᴛᴜʀᴀɴ</a>
+      <a onclick="openPage('order')">ᴏʀᴅᴇʀ ᴠɪᴀ ᴡᴀ</a>
+      <a onclick="openPage('testi')">ᴛᴇꜱᴛɪᴍᴏɴɪ & ᴅɪꜱᴄᴏʀᴅ</a>
+    </div>
+  </header>
+
+  <div id="content">
+    <a id="backBtn" onclick="goHome()">← ᴋᴇᴍʙᴀʟɪ</a>
+    <div id="pageContent"></div>
+  </div>
+
+  <!-- Tombol Musik -->
+  <div class="music-controls">
+    <button class="music-btn" id="btn1" data-icon="🎵" onclick="toggleMusic('music1','btn1')">🎵</button>
+    <button class="music-btn" id="btn2" data-icon="🎶" onclick="toggleMusic('music2','btn2')">🎶</button>
+  </div>
+
+  <audio id="music1" src="allmusic1.mp3"></audio>
+  <audio id="music2" src="allmusic2.mp3"></audio>
+
+  <script>
+    function openPage(page) {
+      let pageContent = document.getElementById('pageContent');
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+      let html = "";
+
+      if (page === 'hosting') {
+        html = `
+          <h2>📢 CODEHOSTID - HOSTING</h2>
+          <div class="section">Ping stabil 30–80 • DDoS Protection • Database & PhpMyAdmin ON</div>
+          <div class="section"><b>📦 LOW 🚀</b><br>50 Slot • RAM/DISK 15GB • CPU 100% • Voice Port • Win/Linux • Harga 5K</div>
+          <div class="section"><b>📦 MEDIUM 🚀</b><br>80 Slot • RAM/DISK 50GB • CPU 200% • Voice Port • Win/Linux • Harga 10K</div>
+          <div class="section"><b>📦 HING 🚀</b><br>100 Slot • RAM/DISK 100GB • CPU 300% • Voice Port • Win/Linux • Harga 15K</div>
+          <div class="section"><b>📦 MAX 🚀</b><br>Req Slot • RAM/DISK 200GB • CPU 400% • Voice Port • Win/Linux • Harga 20K</div>
+        `;
+      }
+      else if (page === 'bot') {
+        html = `
+          <h2>🤖 HOST PANEL BOT</h2>
+          <div class="section">1GB = 1K<br>2GB = 2K<br>3GB = 3K<br>4GB = 4K<br>5GB = 5K<br>6GB = 6K<br>7GB = 7K<br>8GB = 8K<br>9GB = 9K<br>10K = Unlimited</div>
+        `;
+      }
+      else if (page === 'dev') {
+        html = `
+          <h2>🔧 JASA DEVELOPMENT + PERATURAN</h2>
+          <div class="section"><b>🛠️ FIX & SETUP</b><br>Fixed Mudah — 15K<br>Fixed Medium — 20K<br>Fixed Hard — 35K<br>Setup GM — 20K<br>Setup Bot — 20K<br>Jasa On Server — 15K<br>Jasa On Server ++ — 25K<br>Fixed Crash — 30K</div>
+          <div class="section"><b>⚙️ FEATURE CREATION</b><br>Simple — 5K<br>Medium — 15K–50K<br>Complex — 80K–150K</div>
+          <div class="section"><b>📦 JASA DEVELOPER</b><br>Mingguan — 100K<br>Bulanan — 340K</div>
+          <div class="section"><b>📌 PERATURAN & JAM KERJA</b><br>- Jasa tergantung request<br>- ±1 fitur/hari (bisa lebih/kurang)<br>- Tidak menerima Textdraw & Mapping<br>- Jika server mati/suspend → jasa tetap berjalan<br>- Jika masa jasa habis tapi fitur belum selesai → tetap diselesaikan<br><br>⏰ Jam Kerja: 18:00 – 00:00 WIB</div>
+        `;
+      }
+      else if (page === 'order') {
+        html = `
+          <h2>🛒 FORM ORDER VIA WHATSAPP</h2>
+          <div class="section">
+            <label>Nama</label>
+            <input type="text" id="nama" placeholder="Isi nama Anda">
+            <label>Paket / Jasa</label>
+            <select id="paket" onchange="toggleCustomInput()">
+              <option value="Hosting LOW">Hosting LOW - 5K</option>
+              <option value="Hosting MEDIUM">Hosting MEDIUM - 10K</option>
+              <option value="Hosting HING">Hosting HING - 15K</option>
+              <option value="Hosting MAX">Hosting MAX - 20K</option>
+              <option value="Bot Panel">Bot Panel</option>
+              <option value="Fix & Setup">Jasa Fix & Setup</option>
+              <option value="Feature Creation">Feature Creation</option>
+              <option value="Dev Mingguan">Developer Mingguan</option>
+              <option value="Dev Bulanan">Developer Bulanan</option>
+              <option value="Custom">Custom (Tulis Sendiri)</option>
+            </select>
+            <input type="text" id="customPaket" placeholder="Tulis paket/jasa sendiri" style="display:none;">
+            <a href="#" onclick="orderWA()" class="wa-btn">📲 Order via WhatsApp</a>
+          </div>
+        `;
+      }
+      else if (page === 'testi') {
+        html = `
+          <h2>💬 TESTIMONI & DISCORD</h2>
+          <div class="section">✅ <a href="https://whatsapp.com/channel/0029VbB1WET6RGJ9CNkhIT2R" target="_blank">Testimoni ①</a><br><br>✅ <a href="https://whatsapp.com/channel/0029VbBGityLI8YcPKsGh82U" target="_blank">Testimoni ②</a><br><br>💬 <a href="https://discord.com/invite/pTKRcNjSwf" target="_blank">Join Discord</a></div>
+          <div class="section" style="text-align:center;"><b>🙏 Terima kasih telah berkunjung 🙏</b><br>Ada yang bisa dibantu?</div>
+        `;
+      }
+      pageContent.innerHTML = html;
+
+      // kasih efek 1-1 muncul
+      setTimeout(()=>{
+        document.querySelectorAll("#pageContent .section").forEach((el,i)=>{
+          setTimeout(()=>el.classList.add("show"), i*150);
+        });
+      },50);
+    }
+
+    function toggleCustomInput() {
+      let paket = document.getElementById("paket").value;
+      let customInput = document.getElementById("customPaket");
+      if (paket === "Custom") {
+        customInput.style.display = "block";
+      } else {
+        customInput.style.display = "none";
+      }
+    }
+
+    function orderWA() {
+      let nama = document.getElementById("nama").value;
+      let paket = document.getElementById("paket").value;
+      if (paket === "Custom") {
+        paket = document.getElementById("customPaket").value || "Tidak diisi";
+      }
+      let text = `Halo, saya ingin order:%0A- Nama: ${nama}%0A- Paket/Jasa: ${paket}`;
+      window.open("https://wa.me/6289676278983?text=" + text,"_blank");
+    }
+
+    function goHome() {
+      document.getElementById('content').style.display = 'none';
+      document.getElementById('home').style.display = 'flex';
+    }
+
+    // Musik play/pause + ikon berubah
+    function toggleMusic(id, btnId) {
+      let audio = document.getElementById(id);
+      let btn = document.getElementById(btnId);
+
+      if (audio.paused) {
+        document.querySelectorAll("audio").forEach(a => a.pause());
+        document.querySelectorAll(".music-btn").forEach(b => b.textContent = b.dataset.icon);
+        audio.play();
+        btn.textContent = "⏸";
+      } else {
+        audio.pause();
+        btn.textContent = btn.dataset.icon;
+      }
+    }
+  </script>
+</body>
+</html>
