@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ᴄᴏᴅᴇʜᴏꜱᴛ.ɪᴅ</title>
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==============================
+       BACKGROUND FROM INDEX.HTML
+       ==============================*/
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(270deg, #0a0f2c, #1b1235, #0a0f2c);
+      background-size: 600% 600%;
+      animation: bgRGB 15s ease infinite;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Neon particle canvas */
+    #neon-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -5;
+    }
+
+    /* Garis neon atas/bawah */
+    .bg-lines::before,
+    .bg-lines::after {
+      content: "";
+      position: fixed;
+      width: 200%;
+      height: 2px;
+      left: -50%;
+      background: linear-gradient(90deg, transparent, #00eaff, #c800ff, transparent);
+      filter: blur(2px);
+      animation: moveLine 6s linear infinite;
+      z-index: -6;
+      opacity: 0.35;
+    }
+    .bg-lines::before { top: 25%; }
+    .bg-lines::after {
+      top: 70%;
+      animation-duration: 9s;
+      filter: blur(3px);
+    }
+
+    @keyframes moveLine {
+      0% { transform: translateX(-20%); }
+      100% { transform: translateX(20%); }
+    }
+
+    /* BACKGROUND GRADIENT RGB (bawaan indexcode) */
+    @keyframes bgRGB {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* ==============================
+       STYLE ASLI INDEXCODE (TIDAK DIUBAH)
+       ==============================*/
+
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      position: relative;
+    }
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #9d6bff;
+      box-shadow: 0 0 20px rgba(157, 107, 255, 0.6);
+    }
+    .marquee {
+      margin-top: 20px;
+      background: #1b1235;
+      padding: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 90%;
+      max-width: 500px;
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 12s linear infinite;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+    .menu {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 80%;
+      max-width: 400px;
+    }
+    .menu a {
+      display: block;
+      padding: 15px 15px 15px 45px;
+      border-radius: 12px;
+      background: #1b1235;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+    .menu a::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: rgbGlow 2s linear infinite;
+    }
+    @keyframes rgbGlow {
+      0% { background:#ff0000; box-shadow:0 0 10px #ff0000,0 0 20px #ff0000; }
+      25% { background:#00ff00; box-shadow:0 0 10px #00ff00,0 0 20px #00ff00; }
+      50% { background:#0000ff; box-shadow:0 0 10px #0000ff,0 0 20px #0000ff; }
+      75% { background:#ff00ff; box-shadow:0 0 10px #ff00ff,0 0 20px #ff00ff; }
+      100% { background:#ff0000; box-shadow:0 0 10px #ff0000,0 0 20px #ff0000; }
+    }
+
+    #content { display: none; padding: 20px; text-align: left; max-width: 700px; margin: auto; }
+
+    #backBtn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: #9d6bff;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    h2 { color: #9d6bff; text-align: center; }
+
+    .section { 
+      background:#1b1235; 
+      padding:20px; 
+      border-radius:12px; 
+      margin-bottom:20px; 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* MUSIC BUTTON */
+    .music-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+    .music-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: #9d6bff;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 15px rgba(157,107,255,0.7);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body class="bg-lines">
+
+<!-- CANVAS PARTIKEL NEON -->
+<canvas id="neon-particles"></canvas>
+
+<header id="home">
+  <img src="logo.jpg" class="logo">
+   <div class="marquee">
+    <span>ꜱᴇʟᴀᴍᴀᴛ ᴅᴀᴛᴀɴɢ ᴅɪ ᴄᴏᴅᴇʜᴏꜱᴛ.ɪᴅ • ʟᴀʏᴀɴᴀɴ ᴊᴀsᴀ ᴅᴇᴠᴇʟᴏᴘᴍᴇɴᴛ • ʜᴏsᴛɪɴɢ ᴅʟʟ • ᴀᴍᴀɴ ᴛᴇʀᴘᴇʀᴄᴀʏᴀ • ᴡᴇʙsɪᴛᴇ ᴀsʟɪ</span>
+  </div>
+
+  <div class="menu">
+    <a onclick="openPage('hosting')">sᴀᴍᴘ ʙᴜᴅɢᴇᴛ</a>
+    <a onclick="openPage('bot')">sᴀᴍᴘ ʙᴏᴛ</a>
+    <a onclick="openPage('dev')">ᴊᴀꜱᴀ ᴅᴇᴠᴇʟᴏᴘᴍᴇɴᴛ</a>
+    <a onclick="openPage('testi')">ᴛᴇꜱᴛɪᴍᴏɴɪ & ᴅɪsᴄᴏʀᴅ</a>
+  </div>
+</header>
+
+<div id="content">
+  <a id="backBtn" onclick="goHome()">← ᴋᴇᴍʙᴀʟɪ</a>
+  <div id="pageContent"></div>
+</div>
+
+<!-- MUSIC -->
+<div class="music-controls">
+  <button class="music-btn" id="btn1" data-icon="🎵" onclick="toggleMusic('music1','btn1')">🎵</button>
+  <button class="music-btn" id="btn2" data-icon="🎶" onclick="toggleMusic('music2','btn2')">🎶</button>
+</div>
+
+<audio id="music1" src="allmusic1.mp3"></audio>
+<audio id="music2" src="allmusic2.mp3"></audio>
+
+<!-- ============================
+     SCRIPT INDEXCODE ASLI
+     ============================ -->
+<script>
+/* (SEMUA SCRIPT OPENPAGE — TIDAK DIUBAH) */
+function openPage(page) {
+  let pageContent = document.getElementById('pageContent');
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  let html = "";
+
+	  if (page === 'hosting') {
+	    html = `
+     	<div style="text-align:center;">
+          <img src="gta.jpg" style="width:150px;margin-bottom:15px;border-radius:12px;box-shadow:0 0 20px rgba(157,107,255,0.6);">
+         </div>
+	      <h2> 📃 sᴀᴍᴘ ʜᴏsᴛɪɴɢ- ᴄᴏᴅᴇʜᴏsᴛ. ɪᴅ</h2>
+	      <div class="section">
+	        Kami menyediakan layanan hosting samp berkualitas dengan harga yang terjangkau!
+	      </div>
+	      <div class="section">
+	        <b>SAMP #1 🚀| 60 Slot Player | Rp. 5.000 </b><br>
+	        <b>SAMP #3 🚀| 90 Slot Player | Rp. 10.000 </b><br>
+	        <b>SAMP #4 🚀| 120 Slot Player | Rp. 15.000 </b><br>
+	        <b>SAMP #5 🚀| Req Slot Player | Rp. 20.000 </b><br>
+	      </div>
+	      <div class="section">
+	        <h3>Keuntungan membeli hosting samp budget</h3>
+	        <ul>
+	          <li>-> Database ON</li>
+	          <li>-> DDoS Protection</li>
+	          <li>-> PhpMyAdmin ON</li>
+	          <li>-> Ping Stabilitas 30–80</li>
+	          <li>-> Server Aman, terjaga 24 jam oleh ahli</li>
+	          <li>-> Customer service siap membantu kapa saja</li>
+	          <li>-> Garansi 15 hari</li>
+	        </ul>
+	      </div>
+	    `;
+      }
+      else if (page === 'bot') {
+        html = `
+         <div style="text-align:center;">
+          <img src="bot.jpg" style="width:150px;margin-bottom:15px;border-radius:12px;box-shadow:0 0 20px rgba(157,107,255,0.6);">
+         </div>
+          <h2>🤖 ɴᴏᴅᴇ ᴊs/ʙᴏᴛ ᴡᴀ</h2>
+          <div class="section">
+          <br><b>->1GB = 1.000</b>
+          <br><b>->2GB = 2.000</b>
+          <br><b>->3GB = 3.000</b>
+          <br><b>->4GB = 4.000</b>
+          <br><b>->5GB = 5.000</b>
+          <br><b>->6GB = 6.000</b>
+          <br><b>->7GB = 7.000</b>
+          <br><b>->8GB = 8.000</b>
+          <br><b>->9GB = 9.000</b>
+          <br><b>->10GB = 10.000</b>
+          </div>
+        `;
+      }
+      else if (page === 'dev') {
+        html = `
+         <img src="gta2.jpg" style="width:150px;margin-bottom:15px;border-radius:12px;box-shadow:0 0 20px rgba(157,107,255,0.6);">
+          <h2>🔧 ᴊᴀsᴀ ᴅᴇᴠᴇʟᴏᴘᴍᴇɴᴛ</h2>
+          <div class="section"><b>🛠️ FIX & SETUP</b><br>Fixed Mudah — 15K<br>Fixed Medium — 20K<br>Fixed Hard — 35K<br>Setup GM — 20K<br>Setup Bot — 20K<br>Jasa On Server — 15K<br>Jasa On Server ++ — 25K<br>Fixed Crash — 30K</div>
+          <div class="section"><b>⚙️ FEATURE CREATION</b><br>Simple — 5K<br>Medium — 15K–50K<br>Complex — 80K–150K</div>
+          <div class="section"><b>📦 JASA DEVELOPER</b><br>Mingguan — 100K<br>Bulanan — 340K</div>
+          <div class="section"><b>📌 PERATURAN & JAM KERJA</b><br>- Jasa tergantung request<br>- ±1 fitur/hari (bisa lebih/kurang)<br>- Tidak menerima Textdraw & Mapping<br>- Jika server mati/suspend → jasa tetap berjalan<br>- Jika masa jasa habis tapi fitur belum selesai → tetap diselesaikan<br><br>⏰ Jam Kerja: 18:00 – 00:00 WIB</div>
+        `;
+      }
+     else if (page === 'testi') {
+        html = `
+         <div style="text-align:center;">
+           <img src="wadc.jpg" style="width:150px;margin-bottom:15px;border-radius:12px;box-shadow:0 0 20px rgba(157,107,255,0.6);">
+         </div>
+          <h2>💬 ᴛᴇsᴛɪᴍᴏɴɪ & ᴅɪsᴄᴏʀᴅ</h2>
+          <div class="section">✅ <a href="https://whatsapp.com/channel/0029VbB1WET6RGJ9CNkhIT2R" target="_blank">ᴛᴇsᴛɪᴍᴏɴɪ ①</a><br><br>✅ <a href="https://whatsapp.com/channel/0029VbBGityLI8YcPKsGh82U" target="_blank">ᴛᴇsᴛɪᴍᴏɴɪ ②</a><br><br>💬 <a href="https://discord.com/invite/pTKRcNjSwf" target="_blank">ᴊᴏɪɴ ᴅɪsᴄᴏʀᴅ</a></div>
+          <div class="section" style="text-align:center;"><b>🙏 ᴛᴇʀɪᴍᴀ ᴋᴀsɪʜ ᴛᴇʟᴀʜ ʙᴇʀᴋᴜɴᴊᴜɴɢ 🙏</b><br>sᴇᴍᴏɢᴀ ᴀɴᴅᴀ sᴇɴᴀɴɢ ᴅᴇɴɢᴀɴ ᴊᴀsᴀ ᴋᴀᴍɪ ᴛᴇʀɪᴍᴀᴋᴀsɪʜ😇</div>
+        `;
+      }
+  pageContent.innerHTML = html;
+
+  setTimeout(()=>{
+    document.querySelectorAll("#pageContent .section").forEach((el,i)=>{
+      setTimeout(()=>el.classList.add("show"), i*150);
+    });
+  },50);
+}
+
+function goHome() {
+  document.getElementById('content').style.display = 'none';
+  document.getElementById('home').style.display = 'flex';
+}
+
+function toggleMusic(id, btnId) {
+  let audio = document.getElementById(id);
+  let btn = document.getElementById(btnId);
+
+  if (audio.paused) {
+    document.querySelectorAll("audio").forEach(a => a.pause());
+    document.querySelectorAll(".music-btn").forEach(b => b.textContent = b.dataset.icon);
+    audio.play();
+    btn.textContent = "⏸";
+  } else {
+    audio.pause();
+    btn.textContent = btn.dataset.icon;
+  }
+}
+</script>
+
+<!-- ============================
+     SCRIPT PARTIKEL NEON
+     ============================ -->
+<script>
+const canvas = document.getElementById("neon-particles");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+let particles = [];
+for (let i = 0; i < 70; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 3 + 1,
+    colorIndex: Math.random(),
+    speedX: (Math.random() - 0.5) * 0.5,
+    speedY: (Math.random() - 0.5) * 0.5
+  });
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach(p => {
+    p.colorIndex += 0.01;
+
+    const r = Math.floor(100 + 80 * Math.sin(p.colorIndex));
+    const g = Math.floor(20 + 120 * Math.sin(p.colorIndex + 2));
+    const b = Math.floor(200 + 55 * Math.sin(p.colorIndex + 4));
+
+    ctx.beginPath();
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+
+    p.x += p.speedX;
+    p.y += p.speedY;
+
+    if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
